@@ -5,7 +5,6 @@ import com.staya.asap.Service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController //@Controller + @ResponseBody
 @RequestMapping("/api/user")
 public class UserController {
