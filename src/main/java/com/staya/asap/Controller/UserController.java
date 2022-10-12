@@ -5,8 +5,12 @@ import com.staya.asap.Service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+import javax.servlet.http.HttpServletRequest;
+
+
+@RestController //@Controller + @ResponseBody
 @RequestMapping("/api/user")
+@CrossOrigin(maxAge = 3600)
 public class UserController {
     private UserService userService;
 
@@ -16,13 +20,14 @@ public class UserController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO getUserInfo(@PathVariable("id") Integer id){
-        return userService.getUserById(id);
+    public UserDTO getUserInfo(@PathVariable("id") String id){
+        return userService.getUserByEmail(id);
     }
 
-    @PostMapping("/signup")
-    public Integer userJoinActivity() {
-        System.out.println("userJoinActivity");
-        return 0;
+    @GetMapping("/")
+    public String user(HttpServletRequest request) {
+        System.out.println("user request: "+request.getHeader("Authorization"));
+        return "user";
     }
+
 }

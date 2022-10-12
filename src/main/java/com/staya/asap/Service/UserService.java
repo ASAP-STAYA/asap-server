@@ -15,4 +15,12 @@ public class UserService {
     public UserDTO getUserById(Integer id) {
         return this.userRepo.findById(id);
     }
+
+    public UserDTO getUserByEmail(String email) {
+        return this.userRepo.findByEmail(email);
+    }
+
+    public void saveUser(UserDTO user) {
+        this.userRepo.createUser(user);
+    }
 }
