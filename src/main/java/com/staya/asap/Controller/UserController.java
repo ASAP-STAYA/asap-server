@@ -5,10 +5,12 @@ import com.staya.asap.Service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 @RestController //@Controller + @ResponseBody
-@CrossOrigin(maxAge=3600)
 @RequestMapping("/api/user")
+@CrossOrigin(maxAge = 3600)
 public class UserController {
     private UserService userService;
 
@@ -23,7 +25,8 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public String user() {
+    public String user(HttpServletRequest request) {
+        System.out.println("user request: "+request.getHeader("Authorization"));
         return "user";
     }
 

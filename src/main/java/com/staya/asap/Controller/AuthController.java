@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.Collections;
 
-@CrossOrigin(maxAge=3600)
 @RestController
 @RequestMapping("/api/auth")
+@CrossOrigin(maxAge = 3600)
 public class AuthController {
 
     private final JwtTokenProvider jwtTokenProvider;
