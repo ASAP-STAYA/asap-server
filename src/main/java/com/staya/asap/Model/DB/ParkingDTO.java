@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Date;
 
 @Getter
 @Setter
@@ -14,9 +13,7 @@ import java.sql.Date;
 @Table(name = "parkinglot")
 public class ParkingDTO {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
-    @Column
     private int id;
 
     @Column
@@ -30,25 +27,23 @@ public class ParkingDTO {
     @Column
     private String TEL;
 
-
     @Column
     private Integer CAPACITY;
     @Column
     private Integer CAPACITY_AVAILABLE;
 
     @Column
-    private Date WEEKDAY_BEGIN_TIME;
+    private Integer WEEKDAY_BEGIN_TIME;
     @Column
-    private Date WEEKDAY_END_TIME;
+    private Integer WEEKDAY_END_TIME;
     @Column
-    private Date WEEKEND_BEGIN_TIME;
+    private Integer WEEKEND_BEGIN_TIME;
     @Column
-    private Date WEEKEND_END_TIME;
+    private Integer WEEKEND_END_TIME;
     @Column
-    private Date HOLIDAY_BEGIN_TIME;
+    private Integer HOLIDAY_BEGIN_TIME;
     @Column
-    private Date HOLIDAY_END_TIME;
-
+    private Integer HOLIDAY_END_TIME;
 
     @Column
     private Boolean PAY_YN;
@@ -63,29 +58,20 @@ public class ParkingDTO {
     private Integer TIME_RATE;
     @Column
     private Integer ADD_RATES;
-
     @Column
     private Integer ADD_TIME_RATE;
-
-
     @Column
     private Integer DAY_MAXIMUM;
 
     @Column
     private Double LAT;
-
     @Column
     private Double LNG;
 
     @Column
     private Boolean WIDE_YN;
-
     @Column
     private Boolean MECHANICAL_YN;
-
     @Column
     private Integer RATES_PER_HOUR;
-
-
-
 }

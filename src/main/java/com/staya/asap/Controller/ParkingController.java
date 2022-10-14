@@ -1,9 +1,10 @@
 package com.staya.asap.Controller;
 
+import com.staya.asap.Model.DB.ParkingDTO;
 import com.staya.asap.Service.ParkingService;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController //@Controller + @ResponseBody
 @RequestMapping("/api/parking")
@@ -17,14 +18,22 @@ public class ParkingController {
     }
 
 
-    @GetMapping("/data")
-    public String showParkingLotData(HttpServletRequest request)
+    @GetMapping("/save")
+    public String saveParkingLotData()
     {
-        return "parkinglot data";
+        ExcelToDatabase excelToDatabase = new ExcelToDatabase();
+        excelToDatabase.upload();
+
+        List<ParkingDTO> parkinglots = excelToDatabase.upload();
+
+        for (ParkingDTO parkingDTO : parkinglots) {
+            parkingService.saveParkingLot(parkingDTO);
+        }
+        return "parkinglot save done";
     }
 
-    @GetMapping("/home")
-    public String park()
+    @GetMapping("/data")
+    public String showParkingLotData()
     {
         return "parkinglot data";
     }

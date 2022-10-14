@@ -3,6 +3,38 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.staya.asap.Repository.ParkingRepo">
+    <insert id="createParkingLot">
+        INSERT INTO parkinglot
+        VALUES (
+                #{parkinglot.id},
+                #{parkinglot.PARKING_CODE},
+                #{parkinglot.PARKING_NAME},
+                #{parkinglot.ADDR},
+                #{parkinglot.PARKING_TYPE},
+                #{parkinglot.TEL},
+                #{parkinglot.CAPACITY},
+                #{parkinglot.CAPACITY_AVAILABLE},
+                #{parkinglot.WEEKDAY_BEGIN_TIME},
+                #{parkinglot.WEEKDAY_END_TIME},
+                #{parkinglot.WEEKEND_BEGIN_TIME},
+                #{parkinglot.WEEKEND_END_TIME},
+                #{parkinglot.HOLIDAY_BEGIN_TIME},
+                #{parkinglot.HOLIDAY_END_TIME},
+                #{parkinglot.PAY_YN},
+                #{parkinglot.SATURDAY_PAY_YN},
+                #{parkinglot.HOLIDAY_PAY_YN},
+                #{parkinglot.RATES},
+                #{parkinglot.TIME_RATE},
+                #{parkinglot.ADD_RATES},
+                #{parkinglot.ADD_TIME_RATE},
+                #{parkinglot.DAY_MAXIMUM},
+                #{parkinglot.LAT},
+                #{parkinglot.LNG},
+                #{parkinglot.WIDE_YN},
+                #{parkinglot.MECHANICAL_YN},
+                #{parkinglot.RATES_PER_HOUR}
+                );
+    </insert>
 
 
     <select id="findById" resultType="com.staya.asap.Model.DB.ParkingDTO">
