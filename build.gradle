@@ -8,7 +8,7 @@ plugins {
 
 group = 'com.staya'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '18.0.2.1'
+sourceCompatibility = '17.0.4'
 
 configurations {
     compileOnly {

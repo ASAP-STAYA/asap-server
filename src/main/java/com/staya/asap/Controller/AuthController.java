@@ -51,7 +51,6 @@ public class AuthController {
             System.out.println("user"+user);
             return "signup success";
         }
-
     }
 
     @GetMapping("/signout")
@@ -60,7 +59,6 @@ public class AuthController {
         HttpSession session = request.getSession();
         session.removeAttribute("loginUser");
         session.invalidate();
-
 
         return "signout success";
     }
