@@ -8,26 +8,35 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.core.io.ClassPathResource;
 
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
 
 public class ExcelToDatabase {
 
     public List<ParkingDTO> upload() {
-        String filePath = "src/main/resources/static/parkinglotdata.xlsx";
+
+        // ClassLoader classLoader = getClass().getClassLoader();
+        String filePath = "/static/parkinglotdata.xlsx";
+        ClassPathResource classPathResource = new ClassPathResource(filePath);
+
+
 
         List<ParkingDTO> parkinglots = new ArrayList<>();
 
 
-        FileInputStream file;
+        BufferedInputStream file;
+//        FileInputStream file;
         {
             try {
-                file = new FileInputStream(filePath);
+//                file = new FileInputStream(filePath);
+                file = new BufferedInputStream(classPathResource.getInputStream());
+
                 XSSFWorkbook workbook = new XSSFWorkbook(file); //xlsx 확장자만
                 int rowindex = 0;
                 int columnindex = 0; //시트 수 (첫번째에만 존재하므로 0을 준다) //만약 각 시트를 읽기위해서는 FOR문을 한번더 돌려준다
