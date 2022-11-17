@@ -35,9 +35,10 @@ public class ParkingController {
     public String saveParkingLotData()
     {
         ExcelToDatabase excelToDatabase = new ExcelToDatabase();
-        excelToDatabase.upload();
+//        excelToDatabase.upload();
 
         List<ParkingDTO> parkinglots = excelToDatabase.upload();
+        System.out.println("save parkinglots::"+parkinglots);
 
         for (ParkingDTO parkingDTO : parkinglots) {
             parkingService.saveParkingLot(parkingDTO);
