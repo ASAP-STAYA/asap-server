@@ -22,7 +22,7 @@ public class ExcelToDatabase {
     public List<ParkingDTO> upload() {
 
         // ClassLoader classLoader = getClass().getClassLoader();
-        String filePath = "/static/parkinglotdata.xlsx";
+        String filePath = "/home/asap_admin/asap-server/src/main/resources/static/parkinglotdata.xlsx";
         ClassPathResource classPathResource = new ClassPathResource(filePath);
 
 
