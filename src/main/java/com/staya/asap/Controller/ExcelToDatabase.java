@@ -1,4 +1,4 @@
-package com.staya.asap.Controller.excel;
+package com.staya.asap.Controller;
 
 
 import com.staya.asap.Model.DB.ParkingDTO;
@@ -15,20 +15,15 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
-
 public class ExcelToDatabase {
 
     public List<ParkingDTO> upload() {
 
         // ClassLoader classLoader = getClass().getClassLoader();
-        String filePath = "./parkinglotdata.xlsx";
+        String filePath = "parkinglotdata.xlsx";
         ClassPathResource classPathResource = new ClassPathResource(filePath);
 
-
-
         List<ParkingDTO> parkinglots = new ArrayList<>();
-
 
 //        BufferedInputStream file;
         FileInputStream file;
