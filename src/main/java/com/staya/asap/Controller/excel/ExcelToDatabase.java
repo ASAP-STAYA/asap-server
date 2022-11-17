@@ -1,4 +1,4 @@
-package com.staya.asap.Controller;
+package com.staya.asap.Controller.excel;
 
 
 import com.staya.asap.Model.DB.ParkingDTO;
@@ -22,7 +22,7 @@ public class ExcelToDatabase {
     public List<ParkingDTO> upload() {
 
         // ClassLoader classLoader = getClass().getClassLoader();
-        String filePath = "/home/asap_admin/asap-server/src/main/resources/static/parkinglotdata.xlsx";
+        String filePath = "./parkinglotdata.xlsx";
         ClassPathResource classPathResource = new ClassPathResource(filePath);
 
 
