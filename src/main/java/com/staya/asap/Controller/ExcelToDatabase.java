@@ -30,12 +30,12 @@ public class ExcelToDatabase {
         List<ParkingDTO> parkinglots = new ArrayList<>();
 
 
-        BufferedInputStream file;
-//        FileInputStream file;
+//        BufferedInputStream file;
+        FileInputStream file;
         {
             try {
-//                file = new FileInputStream(filePath);
-                file = new BufferedInputStream(classPathResource.getInputStream());
+                file = new FileInputStream(filePath);
+//                file = new BufferedInputStream(classPathResource.getInputStream());
 
                 XSSFWorkbook workbook = new XSSFWorkbook(file); //xlsx 확장자만
                 int rowindex = 0;
