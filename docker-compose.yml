@@ -3,6 +3,9 @@ services:
   asap-db:
     container_name: asap-db
     image: mysql:5.7
+    volumes:
+      - resources/script:/docker-entrypoint-initdb.d/
+    restart: always
     environment:
       MYSQL_DATABASE: asap
       MYSQL_ROOT_PASSWORD: 1234
