@@ -56,8 +56,9 @@ public class AuthController {
             System.out.println("user" + user);
 
             final PreferenceDTO preference = new PreferenceDTO();
-            preference.setUser_id(user);
+            preference.setUser(user);
             preferenceService.savePreference(preference);
+
             return "signup success";
         }
     }

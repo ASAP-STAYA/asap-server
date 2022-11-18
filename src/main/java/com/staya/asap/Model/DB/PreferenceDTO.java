@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @Data
 @Entity
-@Table(name = "user_preference")
+@Table(name = "preference")
 public class PreferenceDTO {
 
     @Id
@@ -18,7 +18,7 @@ public class PreferenceDTO {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private UserDTO user_id;
+    private UserDTO user;
 
     @Column
     private Double dist_prefer;
