@@ -1,13 +1,6 @@
 package com.staya.asap.Model.DB;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +13,7 @@ import lombok.Setter;
 public class PreferenceDTO {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
