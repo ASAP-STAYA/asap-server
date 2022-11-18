@@ -1,7 +1,9 @@
 package com.staya.asap.Controller;
 
+import com.staya.asap.ExcelToDatabase;
 import com.staya.asap.Model.DB.ParkingDTO;
 import com.staya.asap.Service.ParkingService;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -32,10 +35,8 @@ public class ParkingController {
 
 
     @GetMapping("/save")
-    public String saveParkingLotData()
-    {
+    public String saveParkingLotData() throws IOException, InvalidFormatException {
         ExcelToDatabase excelToDatabase = new ExcelToDatabase();
-//        excelToDatabase.upload();
 
         List<ParkingDTO> parkinglots = excelToDatabase.upload();
         System.out.println("save parkinglots::"+parkinglots);
