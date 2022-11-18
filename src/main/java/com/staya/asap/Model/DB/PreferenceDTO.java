@@ -24,7 +24,7 @@ public class PreferenceDTO {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private UserDTO USER_ID;
+    private UserDTO user_id;
 
     @Column
     private Double dist_prefer;
