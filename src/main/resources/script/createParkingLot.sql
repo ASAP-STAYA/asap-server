@@ -66,4 +66,6 @@ CREATE TABLE `preference` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 INSERT INTO user (username, email, password, role) VALUES ('testadmin', 'admin@test.com', '12345678', 'ROLE_ADMIN');
+INSERT INTO preference (user_id) VALUES ((SELECT id FROM user WHERE email='admin@test.com'));
 INSERT INTO user (username, email, password, role) VALUES ('testuser', 'user@test.com', '12345678', 'ROLE_USER');
+INSERT INTO preference (user_id) VALUES ((SELECT id FROM user WHERE email='user@test.com'));
