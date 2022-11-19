@@ -40,13 +40,13 @@ public class AuthController {
         return jwtTokenProvider.createToken(user_check.getEmail(), Collections.singletonList(user_check.getRole()));
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/signup/user")
     @ResponseStatus(HttpStatus.OK)
     public String userJoinActivity(@RequestBody UserDTO user) {
 
         UserDTO user_check = userService.getUserByEmail(user.getEmail());
         if (user_check != null) {
-            return "same user";
+            return "[ERROR] same user";
         } else {
             final String rawPassword = user.getPassword();
             final String encPassword = bCryptPasswordEncoder.encode(rawPassword);
@@ -55,12 +55,14 @@ public class AuthController {
             userService.saveUser(user);
             System.out.println("user" + user);
 
-            final PreferenceDTO preference = new PreferenceDTO();
-            preference.setUser(user);
-            preferenceService.savePreference(preference);
-
-            return "signup success";
+            return Integer.toString(userService.getUserByEmail(user.getEmail()).getId());
         }
+    }
+
+    @PostMapping("/signup/preference")
+    @ResponseStatus(HttpStatus.OK)
+    public void preferenceJoinActivity(@RequestBody PreferenceDTO preference) {
+        preferenceService.savePreference(preference);
     }
 
     @GetMapping("/signout")

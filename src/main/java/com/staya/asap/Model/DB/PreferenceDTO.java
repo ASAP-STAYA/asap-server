@@ -16,9 +16,8 @@ public class PreferenceDTO {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private UserDTO user;
+    @Column
+    private int user_id;
 
     @Column
     private Double dist_prefer;

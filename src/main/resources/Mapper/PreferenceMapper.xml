@@ -4,8 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.staya.asap.Repository.PreferenceRepo">
     <insert id="createPreference">
-        INSERT INTO preference(id, user_id)
-        VALUES (#{preference.id}, (SELECT id FROM user where email=#{preference.user.email}));
+        INSERT INTO preference(id, user_id, dist_prefer, cost_prefer, can_mechanical, can_narrow)
+        VALUES (#{preference.id}, #{preference.user_id},
+                #{preference.dist_prefer}, #{preference.cost_prefer},
+                #{preference.can_mechanical}, #{preference.can_narrow});
     </insert>
 
     <select id="findById" resultType="preferenceDTO">
