@@ -43,6 +43,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/auth/signup", "api/auth/signin", "api/exception/**").permitAll()
                 .antMatchers("/api/parking/**").permitAll()
                 .antMatchers("/api/user/**").authenticated()
+                .antMatchers("/api/preference/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().disable()
