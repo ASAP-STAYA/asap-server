@@ -15,4 +15,6 @@ public interface PreferenceRepo {
     PreferenceDTO findById(@Param("id") Integer id);
 
     PreferenceDTO findByUserId(@Param("userId") Integer userId);
+
+    PreferenceDTO findByUserName(@Param("userName") String userName);
 }

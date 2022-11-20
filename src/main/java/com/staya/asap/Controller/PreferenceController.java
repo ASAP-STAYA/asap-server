@@ -2,7 +2,6 @@ package com.staya.asap.Controller;
 
 import com.staya.asap.Model.DB.PreferenceDTO;
 import com.staya.asap.Service.PreferenceService;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,6 +27,14 @@ public class PreferenceController {
     @ResponseStatus(HttpStatus.OK)
     public PreferenceDTO getPreferenceInfoByUserId(@PathVariable("userId") Integer id) {
         return preferenceService.getPreferenceByUserId(id);
+    }
+
+    @GetMapping("/")
+    @ResponseStatus(HttpStatus.OK)
+    public PreferenceDTO getPreferenceInfo() {
+        // TODO: 유저의 이름이 아닌 이메일이나 pk로 식별해야 함
+        final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        return preferenceService.getPreferenceByUserName(userName);
     }
 
     @PatchMapping("/")
