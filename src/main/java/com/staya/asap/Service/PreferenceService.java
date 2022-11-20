@@ -20,7 +20,11 @@ public class PreferenceService {
         return this.preferenceRepo.findByUserId(userId);
     }
 
-    public void savePreference(PreferenceDTO preference) {
+    public void createPreference(PreferenceDTO preference) {
         this.preferenceRepo.createPreference(preference);
+    }
+
+    public void updatePreference(PreferenceDTO preference, String userName) {
+        this.preferenceRepo.updatePreference(preference, userName);
     }
 }

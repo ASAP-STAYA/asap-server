@@ -21,4 +21,13 @@
         FROM preference
         WHERE user_id = #{userId};
     </select>
+
+    <select id="updatePreference">
+        UPDATE preference
+        SET dist_prefer=#{preference.dist_prefer},
+            cost_prefer=#{preference.cost_prefer},
+            can_mechanical=#{preference.can_mechanical},
+            can_narrow=#{preference.can_narrow}
+        WHERE user_id = (SELECT id FROM user WHERE username = #{userName});
+    </select>
 </mapper>

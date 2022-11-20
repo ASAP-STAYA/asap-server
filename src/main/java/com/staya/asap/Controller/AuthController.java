@@ -62,7 +62,7 @@ public class AuthController {
     @PostMapping("/signup/preference")
     @ResponseStatus(HttpStatus.OK)
     public void preferenceJoinActivity(@RequestBody PreferenceDTO preference) {
-        preferenceService.savePreference(preference);
+        preferenceService.createPreference(preference);
     }
 
     @GetMapping("/signout")

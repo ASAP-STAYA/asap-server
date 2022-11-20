@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 public interface PreferenceRepo {
     void createPreference(@Param("preference") PreferenceDTO preference);
 
+    void updatePreference(@Param("preference") PreferenceDTO preference, @Param("userName") String userName);
+
     PreferenceDTO findById(@Param("id") Integer id);
 
     PreferenceDTO findByUserId(@Param("userId") Integer userId);
