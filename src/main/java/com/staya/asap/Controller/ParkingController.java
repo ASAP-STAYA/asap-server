@@ -120,11 +120,11 @@ public class ParkingController {
             LinkedHashMap searchItem = (LinkedHashMap) searchList.get(0);
             System.out.println("hasparkinglot:: "+searchItem);
 
-            ArrayList<Float> LatLng = new ArrayList<>();
+            ArrayList<Float> LatLng = new ArrayList<>(); // 주차장
             LatLng.add(Float.parseFloat(searchItem.get("y").toString())); //위도
             LatLng.add(Float.parseFloat(searchItem.get("x").toString())); //경도
 
-            ArrayList<Float> latLng = LatLng(searching);
+            ArrayList<Float> latLng = LatLng(searching); // 목적지
 
             System.out.println("hasparkinglot:: " + "위도 차이: " +abs(LatLng.get(0)-latLng.get(0)) + "경도 차이: " + abs(LatLng.get(1)-latLng.get(1)));
             // category_group_code MT1 대형마트 SC4 학교 PK6 주차장 OL7 주유소 충전소 HP8 병원 (주차장 없을 경우)

@@ -49,5 +49,23 @@ CREATE TABLE `user` (
                               PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
+
+CREATE TABLE `preference` (
+                        `id` int(11) NOT NULL AUTO_INCREMENT,
+                        `user_id` int(11) NOT NULL,
+
+                        `dist_prefer` double NOT NULL DEFAULT 0.0,
+                        `dist_weight` double NOT NULL DEFAULT 0.4,
+                        `cost_prefer` double NOT NULL DEFAULT 0.0,
+                        `cost_weight` double NOT NULL DEFAULT 0.6,
+                        `can_mechanical` tinyint(1) NOT NULL DEFAULT 1,
+                        `can_narrow` tinyint(1) NOT NULL DEFAULT 1,
+
+                        PRIMARY KEY (`id`),
+                        FOREIGN KEY (user_id) REFERENCES user(id) ON UPDATE cascade
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
 INSERT INTO user (username, email, password, role) VALUES ('testadmin', 'admin@test.com', '12345678', 'ROLE_ADMIN');
+INSERT INTO preference (user_id) VALUES ((SELECT id FROM user WHERE email='admin@test.com'));
 INSERT INTO user (username, email, password, role) VALUES ('testuser', 'user@test.com', '12345678', 'ROLE_USER');
+INSERT INTO preference (user_id) VALUES ((SELECT id FROM user WHERE email='user@test.com'));
