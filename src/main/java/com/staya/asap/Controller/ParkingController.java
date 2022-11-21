@@ -128,4 +128,21 @@ public class ParkingController {
 
         return false;
     }
+    @GetMapping("/findParkingLot")
+    public ArrayList<String> findParkingLot(@RequestParam String searching) {
+        // 리턴값 주차장 이름, 경도, 위도
+        ArrayList<Float> latLng = LatLng(searching); // 목적지
+
+        List<ParkingDTO> searchList = parkingService.findAdjacentParkingLot(latLng);
+        if(!searchList.isEmpty()) {
+            System.out.println("find 1km inside parking lots ");
+            searchList.forEach(data -> System.out.println("data : " + data));
+        }
+        ArrayList<String> destination = new ArrayList<>();
+        destination.add("신수동 공영주차장");
+        destination.add("위도를 string 형으로");
+        destination.add("경도");
+        return destination;
+    }
+
 }

@@ -74,4 +74,7 @@ public class ParkingDTO {
     private Boolean MECHANICAL_YN;
     @Column
     private Integer RATES_PER_HOUR;
+
+    @Column
+    private Float distance;
 }
