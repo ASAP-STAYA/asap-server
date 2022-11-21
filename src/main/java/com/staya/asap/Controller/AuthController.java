@@ -1,7 +1,9 @@
 package com.staya.asap.Controller;
 
 import com.staya.asap.Configuration.Security.Auth.JwtTokenProvider;
+import com.staya.asap.Model.DB.PreferenceDTO;
 import com.staya.asap.Model.DB.UserDTO;
+import com.staya.asap.Service.PreferenceService;
 import com.staya.asap.Service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,11 +20,16 @@ public class AuthController {
 
     private final JwtTokenProvider jwtTokenProvider;
     private final UserService userService;
+    private final PreferenceService preferenceService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public AuthController(JwtTokenProvider jwtTokenProvider, UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public AuthController(JwtTokenProvider jwtTokenProvider,
+                          UserService userService,
+                          PreferenceService preferenceService,
+                          BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.jwtTokenProvider = jwtTokenProvider;
         this.userService = userService;
+        this.preferenceService = preferenceService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
@@ -33,24 +40,29 @@ public class AuthController {
         return jwtTokenProvider.createToken(user_check.getEmail(), Collections.singletonList(user_check.getRole()));
     }
 
-    @PostMapping("/signup")
+    @PostMapping("/signup/user")
     @ResponseStatus(HttpStatus.OK)
     public String userJoinActivity(@RequestBody UserDTO user) {
 
         UserDTO user_check = userService.getUserByEmail(user.getEmail());
         if (user_check != null) {
-            return "same user";
-        }
-
-        else {
-            String rawPassword = user.getPassword();
-            String encPassword = bCryptPasswordEncoder.encode(rawPassword);
+            return "[ERROR] same user";
+        } else {
+            final String rawPassword = user.getPassword();
+            final String encPassword = bCryptPasswordEncoder.encode(rawPassword);
             user.setPassword(encPassword);
             user.setRole("ROLE_USER");
             userService.saveUser(user);
-            System.out.println("user"+user);
-            return "signup success";
+            System.out.println("user" + user);
+
+            return Integer.toString(userService.getUserByEmail(user.getEmail()).getId());
         }
+    }
+
+    @PostMapping("/signup/preference")
+    @ResponseStatus(HttpStatus.OK)
+    public void preferenceJoinActivity(@RequestBody PreferenceDTO preference) {
+        preferenceService.createPreference(preference);
     }
 
     @GetMapping("/signout")
