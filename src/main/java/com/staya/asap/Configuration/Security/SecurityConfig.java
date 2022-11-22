@@ -44,6 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/parking/**").authenticated()
                 .antMatchers("/api/user/**").authenticated()
                 .antMatchers("/api/preference/**").authenticated()
+                .antMatchers("/api/review/**").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin().disable()

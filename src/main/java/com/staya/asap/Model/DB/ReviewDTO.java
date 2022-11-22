@@ -10,10 +10,13 @@ import javax.persistence.*;
 @Setter
 @Data
 @Entity
-@Table(name = "userreview")
+@Table(name = "user_review")
 public class ReviewDTO {
     @Id
     private int id;
+
+    @Column
+    private int user_id;
 
     @Column
     private double dist;
@@ -21,7 +24,6 @@ public class ReviewDTO {
     private double cost;
     @Column
     private int discontent;
-    @Column
-    private int user_id;
+
 
 }
