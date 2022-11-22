@@ -1,11 +1,16 @@
 package com.staya.asap.Controller;
 
+import com.staya.asap.Configuration.Security.Auth.PrincipalDetails;
 import com.staya.asap.Model.DB.ParkingDTO;
+import com.staya.asap.Model.DB.UserDTO;
 import com.staya.asap.Service.ParkingService;
+import com.staya.asap.Service.UserService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -25,6 +30,7 @@ import static java.lang.Math.abs;
 public class ParkingController {
 
     private ParkingService parkingService;
+    private UserService userService;
 
     public ParkingController(ParkingService parkingService){
         this.parkingService = parkingService;
@@ -129,20 +135,35 @@ public class ParkingController {
         return false;
     }
     @GetMapping("/findParkingLot")
-    public ArrayList<String> findParkingLot(@RequestParam String searching) {
-        // 리턴값 주차장 이름, 경도, 위도
-        ArrayList<Float> latLng = LatLng(searching); // 목적지
+    public ParkingDTO findParkingLot(@RequestParam double lat, @RequestParam double lng) {
+        // 입력값 : 경도 , 위도
+        // 리턴값 : 주차장 이름, 경도, 위도
 
-        List<ParkingDTO> searchList = parkingService.findAdjacentParkingLot(latLng);
+        // 1. 1km 반경 내의 주차장 탐색
+        List<ParkingDTO> searchList = parkingService.findAdjacentParkingLot(lat,lng);
         if(!searchList.isEmpty()) {
-            System.out.println("find 1km inside parking lots ");
+            //System.out.println("find 1km inside parking lots ");
             searchList.forEach(data -> System.out.println("data : " + data));
         }
-        ArrayList<String> destination = new ArrayList<>();
-        destination.add("신수동 공영주차장");
-        destination.add("위도를 string 형으로");
-        destination.add("경도");
-        return destination;
+
+
+        // 2. 해당 유저 선호도 불러오기
+        // 2-1. 로그인한 유저 정보 불러오기
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username;
+        if (principal instanceof PrincipalDetails) {
+            username = ((PrincipalDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+
+        }
+        // 로그인한 유저
+        if(username != "anonymousUser"){
+            // 2-2. 유저의 선호도 정보 불러오기
+            //UserDTO user = userService.getUserByEmail(username);
+
+        }
+        return searchList.get(0);
     }
 
 }

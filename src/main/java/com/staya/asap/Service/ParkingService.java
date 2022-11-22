@@ -26,9 +26,7 @@ public class ParkingService {
         this.parkingRepo.createParkingLot(parkingDTO);
     }
 
-    public List<ParkingDTO> findAdjacentParkingLot(ArrayList<Float> latlng) {
-        Float lat = latlng.get(0);
-        Float lng = latlng.get(1);
+    public List<ParkingDTO> findAdjacentParkingLot(double lat, double lng) {
         return this.parkingRepo.findByLatLng(lat,lng);
     }
 }

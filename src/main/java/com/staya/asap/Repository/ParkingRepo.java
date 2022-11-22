@@ -17,5 +17,5 @@ public interface ParkingRepo {
 
     public void createParkingLot(@Param("parkinglot") ParkingDTO parkingDTO);
 
-    public List<ParkingDTO> findByLatLng(@Param("lat") Float lat, @Param("lng") Float lng);
+    public List<ParkingDTO> findByLatLng(@Param("lat") double lat, @Param("lng") double lng);
 }
