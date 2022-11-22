@@ -92,8 +92,7 @@ public class ParkingController {
     // 위치의 주차장 있는지 여부 확인
     @GetMapping("/hasParkingLot")
     public boolean hasParkingLot(@RequestParam String searching, Double lat, Double lng) {
-//        String searching = "신촌역 주차장";
-//      &category_group_code=PK6
+
         String url = "https://dapi.kakao.com/v2/local/search/keyword.json?query="+searching+"&category_group_code=PK6&radius=1";
         String key = "d08482d7a9775511b47dfeaa8b8997f7";
 
@@ -108,11 +107,8 @@ public class ParkingController {
                 .encode(StandardCharsets.UTF_8) //인코딩
                 .toUri();
 
-        //GetForObject는 헤더를 정의할 수 없음
         ResponseEntity<Map> result = restTemplate.exchange(targetUrl, HttpMethod.GET, httpEntity, Map.class);
-        System.out.println("hasparkinglot:: "+result);
         ArrayList<Object> searchList = (ArrayList<Object>) result.getBody().get("documents");
-        System.out.println("hasparkinglot:: "+searchList);
 
 
         if (!searchList.isEmpty()){
@@ -124,7 +120,10 @@ public class ParkingController {
             LatLng.add(Float.parseFloat(searchItem.get("y").toString())); //위도
             LatLng.add(Float.parseFloat(searchItem.get("x").toString())); //경도
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> f0b3b35080eb4dd6338f6816038db0c7f8d25034
             System.out.println("hasparkinglot:: " + "위도 차이: " +abs(LatLng.get(0)-lat) + "경도 차이: " + abs(LatLng.get(1)-lng));
             // category_group_code MT1 대형마트 SC4 학교 PK6 주차장 OL7 주유소 충전소 HP8 병원 (주차장 없을 경우)
             // 경도 위도 차이가 거의 없는 경우
@@ -134,7 +133,6 @@ public class ParkingController {
                 return false;
             }
         }
-
         return false;
     }
 }
