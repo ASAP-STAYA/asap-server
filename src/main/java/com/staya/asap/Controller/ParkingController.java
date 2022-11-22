@@ -91,7 +91,7 @@ public class ParkingController {
 
     // 위치의 주차장 있는지 여부 확인
     @GetMapping("/hasParkingLot")
-    public boolean hasParkingLot(@RequestParam String searching) {
+    public boolean hasParkingLot(@RequestParam String searching, Double lat, Double lng) {
 //        String searching = "신촌역 주차장";
 //      &category_group_code=PK6
         String url = "https://dapi.kakao.com/v2/local/search/keyword.json?query="+searching+"&category_group_code=PK6&radius=1";
@@ -124,12 +124,11 @@ public class ParkingController {
             LatLng.add(Float.parseFloat(searchItem.get("y").toString())); //위도
             LatLng.add(Float.parseFloat(searchItem.get("x").toString())); //경도
 
-            ArrayList<Float> latLng = LatLng(searching); // 목적지
 
-            System.out.println("hasparkinglot:: " + "위도 차이: " +abs(LatLng.get(0)-latLng.get(0)) + "경도 차이: " + abs(LatLng.get(1)-latLng.get(1)));
+            System.out.println("hasparkinglot:: " + "위도 차이: " +abs(LatLng.get(0)-lat) + "경도 차이: " + abs(LatLng.get(1)-lng));
             // category_group_code MT1 대형마트 SC4 학교 PK6 주차장 OL7 주유소 충전소 HP8 병원 (주차장 없을 경우)
             // 경도 위도 차이가 거의 없는 경우
-            if (abs(LatLng.get(0)-latLng.get(0))<=0.001 || abs(LatLng.get(1)-latLng.get(1))<=0.001) {
+            if (abs(LatLng.get(0)-lat)<=0.001 || abs(LatLng.get(1)-lng)<=0.001) {
                 return true;
             }else{
                 return false;
