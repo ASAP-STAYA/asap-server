@@ -36,4 +36,11 @@
             can_narrow=#{preference.can_narrow}
         WHERE user_id = (SELECT id FROM user WHERE username = #{userName});
     </select>
+
+    <select id="updateWeights">
+        UPDATE preference
+        SET dist_weight=#{preference.dist_weight},
+        cost_weight=#{preference.cost_weight}
+        WHERE user_id = #{userId};
+    </select>
 </mapper>
