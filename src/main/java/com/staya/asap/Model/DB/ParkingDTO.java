@@ -47,4 +47,6 @@ public class ParkingDTO {
 
     @Column
     private Float distance;
+    @Column
+    private double Cost;
 }
