@@ -29,6 +29,7 @@ public class PreferenceController {
         return preferenceService.getPreferenceByUserId(id);
     }
 
+
     @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public PreferenceDTO getPreferenceInfo() {
