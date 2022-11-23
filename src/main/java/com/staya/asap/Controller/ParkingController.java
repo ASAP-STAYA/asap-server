@@ -176,9 +176,11 @@ public class ParkingController {
         // 가중치 1 : 유저 선호 범위 내에 존재 => 0.2 / 그 외 => 0.8 (adv 사용)
         // 가중치 2 : 거리와 요금의 상대적인 중요도 비율 (cost_weight, dist_weight 사용)
         ParkingDTO result = filtered.get(0);
-        double ParkingScore = result.getDistance()*dist_weight + result.getRATES_PER_HOUR()*cost_weight;
+        double ParkingScore = 1000.0; //최댓값으로 초기화
         for (ParkingDTO data : filtered){
-            double rate = (double)(data.getRATES_PER_HOUR());
+            // 현재 요일에 맞는 요금
+            double rate = data.getCost();
+            //System.out.println(rate);
             double dist = (double)(data.getDistance());
             double score = 0.0;
 
@@ -199,6 +201,7 @@ public class ParkingController {
                 result = data;
             }
         }
+        //System.out.println(ParkingScore);
         return result;
     }
 
@@ -208,8 +211,8 @@ public class ParkingController {
         // 입력값 : 경도 , 위도
         // 리턴값 : 주차장 이름, 경도, 위도
 
-        System.out.println("hello!\n");
-        System.out.println(lat);
+        //System.out.println("hello!\n");
+        //System.out.println(lat);
         // 0. 로그인한 유저 정보 불러오기
         PrincipalDetails user = (PrincipalDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Integer userId = user.getUserId();
@@ -220,7 +223,7 @@ public class ParkingController {
         //if (principal instanceof PrincipalDetails) {
         //Integer userId = ((PrincipalDetails)principal).getId();
         System.out.println("Successfully Get User Data!");
-        System.out.println(userId);
+        //System.out.println(userId);
         prefer = preferenceService.getPreferenceByUserId(userId);
         //}
       /*  else{
@@ -246,7 +249,7 @@ public class ParkingController {
                 return result;
             }
         }
-
+        //System.out.println(searchList.size());
         // 2. 주차장 점수 계산 후 사용자 최적의 주차장 선정
         return finalParkingLot(searchList, prefer);
     }
