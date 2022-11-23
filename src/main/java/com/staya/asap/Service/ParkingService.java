@@ -31,8 +31,8 @@ public class ParkingService {
     public List<ParkingDTO> findAdjacentParkingLot(PreferenceDTO prefer, double lat, double lng, Integer radius) {
         // userId 대신 preferenceDTO 들고오기
 
-        Boolean mechanical = prefer.getCan_mechanical();
-        Boolean narrow = prefer.getCan_narrow();
+        Integer mechanical = (prefer.getCan_mechanical())? 1: 0;
+        Integer narrow = (prefer.getCan_narrow())? 1:0;
         Double dist_prefer = prefer.getDist_prefer();
         Double cost_prefer = prefer.getCost_prefer();
         return this.parkingRepo.getSearchList(lat,lng, radius, mechanical, narrow, dist_prefer, cost_prefer);

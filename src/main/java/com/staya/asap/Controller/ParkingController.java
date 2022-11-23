@@ -212,7 +212,7 @@ public class ParkingController {
         System.out.println(lat);
         // 0. 로그인한 유저 정보 불러오기
         PrincipalDetails user = (PrincipalDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Integer userId = user.getId();
+        Integer userId = user.getUserId();
         PreferenceDTO prefer;
         ParkingDTO result = new ParkingDTO();
 

@@ -50,7 +50,7 @@
                          AS distance
               FROM parkinglot
         ) AS DIST
-        WHERE DIST.distance &lt;= #{rad} AND DIST.CAPACITY_AVAILABLE &lt; 0 AND (DIST.WIDE_YN OR #{narrow}) AND (DIST.MECHANICAL_YN OR #{mechanical});
+        WHERE DIST.distance &lt;= #{rad} AND DIST.CAPACITY_AVAILABLE &gt; 0 AND (DIST.WIDE_YN OR #{narrow}) AND (DIST.MECHANICAL_YN OR #{mechanical});
      </select>
 
 </mapper>
