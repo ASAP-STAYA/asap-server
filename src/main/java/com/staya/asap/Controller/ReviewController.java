@@ -1,8 +1,10 @@
 package com.staya.asap.Controller;
 
 
+import com.staya.asap.Configuration.Security.Auth.PrincipalDetails;
 import com.staya.asap.Model.DB.ReviewDTO;
 import com.staya.asap.Service.ReviewService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,12 +19,8 @@ public class ReviewController {
 
     @PostMapping("/save")
     public String saveReview(@RequestBody ReviewDTO review){
-        /*Integer userid = review.getUser_id();
-        System.out.println(userid);
-        review.setUser_id(0);
-        review.setCost(1234);
-        review.setDist(52103);
-        review.setDiscontent(2);*/
+        PrincipalDetails user = (PrincipalDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        review.setUser_id(user.getUserId());
         reviewService.saveReview(review);
 
         return "Review save done";

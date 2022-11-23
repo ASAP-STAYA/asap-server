@@ -65,7 +65,20 @@ CREATE TABLE `preference` (
                         FOREIGN KEY (user_id) REFERENCES user(id) ON UPDATE cascade
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
+CREATE TABLE `user_review` (
+                          `id` int(11) NOT NULL AUTO_INCREMENT,
+                          `user_id` int(11) DEFAULT NULL,
+                          `dist` double NOT NULL,
+                          `cost` double NOT NULL,
+                          `discontent` int(11) NOT NULL DEFAULT -1,
+                          PRIMARY KEY (`id`),
+                          FOREIGN KEY (user_id) REFERENCES user(id) ON UPDATE cascade
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+
+
 INSERT INTO user (username, email, password, role) VALUES ('testadmin', 'admin@test.com', '12345678', 'ROLE_ADMIN');
 INSERT INTO preference (user_id) VALUES ((SELECT id FROM user WHERE email='admin@test.com'));
 INSERT INTO user (username, email, password, role) VALUES ('testuser', 'user@test.com', '12345678', 'ROLE_USER');
 INSERT INTO preference (user_id) VALUES ((SELECT id FROM user WHERE email='user@test.com'));
+INSERT INTO user_review (user_id, dist, cost, discontent) VALUES (2, 3, 3000, 0);
