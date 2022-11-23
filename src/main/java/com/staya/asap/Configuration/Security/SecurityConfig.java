@@ -41,7 +41,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**/*").permitAll()
                 .antMatchers("/api/auth/signup", "api/auth/signin", "api/exception/**").permitAll()
-                .antMatchers("/api/parking/**").permitAll()
+                .antMatchers("/api/parking/findParkingLot").authenticated()
                 .antMatchers("/api/user/**").authenticated()
                 .antMatchers("/api/preference/**").authenticated()
                 .antMatchers("/api/review/**").authenticated()
