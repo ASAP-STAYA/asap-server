@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 @Mapper
 @Repository
 public interface PreferenceRepo {
@@ -12,9 +14,12 @@ public interface PreferenceRepo {
 
     void updatePreference(@Param("preference") PreferenceDTO preference, @Param("userName") String userName);
 
+    void updateWeights(@Param("preference") PreferenceDTO preference, @Param("userId") Integer userId);
     PreferenceDTO findById(@Param("id") Integer id);
 
     PreferenceDTO findByUserId(@Param("userId") Integer userId);
 
     PreferenceDTO findByUserName(@Param("userName") String userName);
+
+
 }

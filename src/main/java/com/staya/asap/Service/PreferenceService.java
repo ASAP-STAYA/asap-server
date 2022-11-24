@@ -32,4 +32,8 @@ public class PreferenceService {
     public void updatePreference(PreferenceDTO preference, String userName) {
         this.preferenceRepo.updatePreference(preference, userName);
     }
+
+    public void updateWeights(PreferenceDTO preference, Integer userId){
+        this.preferenceRepo.updateWeights(preference,userId);
+    }
 }
