@@ -20,17 +20,12 @@ public class PreferenceService {
         return this.preferenceRepo.findByUserId(userId);
     }
 
-    // TODO: 없어져야 함
-    public PreferenceDTO getPreferenceByUserName(String userName) {
-        return this.preferenceRepo.findByUserName(userName);
-    }
-
     public void createPreference(PreferenceDTO preference) {
         this.preferenceRepo.createPreference(preference);
     }
 
-    public void updatePreference(PreferenceDTO preference, String userName) {
-        this.preferenceRepo.updatePreference(preference, userName);
+    public void updatePreference(PreferenceDTO preference, int userId) {
+        this.preferenceRepo.updatePreference(preference, userId);
     }
 
     public void updateWeights(PreferenceDTO preference, Integer userId){

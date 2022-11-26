@@ -3,6 +3,7 @@ package com.staya.asap.Controller;
 import com.staya.asap.Configuration.Security.Auth.JwtTokenProvider;
 import com.staya.asap.Model.DB.PreferenceDTO;
 import com.staya.asap.Model.DB.UserDTO;
+import com.staya.asap.Model.DB.UserWithPreferenceDTO;
 import com.staya.asap.Service.PreferenceService;
 import com.staya.asap.Service.UserService;
 import org.springframework.http.HttpStatus;
@@ -40,29 +41,38 @@ public class AuthController {
         return jwtTokenProvider.createToken(user_check.getEmail(), Collections.singletonList(user_check.getRole()));
     }
 
-    @PostMapping("/signup/user")
+    @PostMapping("/signup")
     @ResponseStatus(HttpStatus.OK)
-    public String userJoinActivity(@RequestBody UserDTO user) {
+    public String userJoinActivity(@RequestBody UserWithPreferenceDTO userWithPreference) {
 
-        UserDTO user_check = userService.getUserByEmail(user.getEmail());
+        UserDTO user_check = userService.getUserByEmail(userWithPreference.getEmail());
         if (user_check != null) {
             return "[ERROR] same user";
         } else {
-            final String rawPassword = user.getPassword();
+            final String rawPassword = userWithPreference.getPassword();
             final String encPassword = bCryptPasswordEncoder.encode(rawPassword);
-            user.setPassword(encPassword);
-            user.setRole("ROLE_USER");
+            userWithPreference.setPassword(encPassword);
+            userWithPreference.setRole("ROLE_USER");
+
+            UserDTO user = new UserDTO();
+            user.setUsername(userWithPreference.getUsername());
+            user.setRole(userWithPreference.getRole());
+            user.setPassword(userWithPreference.getPassword());
+            user.setEmail(userWithPreference.getEmail());
             userService.saveUser(user);
-            System.out.println("user" + user);
+            System.out.println("user" + user.getEmail());
 
-            return Integer.toString(userService.getUserByEmail(user.getEmail()).getId());
+            PreferenceDTO preference = new PreferenceDTO();
+            preference.setUser_id(userService.getUserByEmail(user.getEmail()).getId());
+            preference.setDist_prefer(userWithPreference.getDist_prefer());
+            preference.setCost_prefer(userWithPreference.getCost_prefer());
+            preference.setCan_mechanical(userWithPreference.getCan_mechanical());
+            preference.setCan_narrow(userWithPreference.getCan_narrow());
+
+            preferenceService.createPreference(preference);
+
+            return "sign up success";
         }
-    }
-
-    @PostMapping("/signup/preference")
-    @ResponseStatus(HttpStatus.OK)
-    public void preferenceJoinActivity(@RequestBody PreferenceDTO preference) {
-        preferenceService.createPreference(preference);
     }
 
     @GetMapping("/signout")
