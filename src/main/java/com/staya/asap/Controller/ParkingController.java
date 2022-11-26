@@ -104,13 +104,6 @@ public class ParkingController {
         return "parkinglot save done";
     }
 
-    @GetMapping("/data")
-    public ParkingDTO parkingLotData()
-    {
-        ParkingDTO parkingDTO = parkingService.getParkingLotById(1);
-        return parkingDTO;
-    }
-
     public ArrayList<Float> LatLng(String searching){
         String url = "https://dapi.kakao.com/v2/local/search/keyword.json?query="+searching+"&radius=20000";
         String key = "d08482d7a9775511b47dfeaa8b8997f7";
