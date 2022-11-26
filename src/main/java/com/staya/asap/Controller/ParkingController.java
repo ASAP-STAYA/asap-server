@@ -190,8 +190,6 @@ public class ParkingController {
         // 입력값 : 경도 , 위도
         // 리턴값 : 주차장 이름, 경도, 위도
 
-        //System.out.println("hello!\n");
-        //System.out.println(lat);
         // 0. 로그인한 유저 정보 불러오기
         PrincipalDetails user = (PrincipalDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Integer userId = user.getUserId();
@@ -199,23 +197,11 @@ public class ParkingController {
         ParkingDTO result = new ParkingDTO();
 
         // 로그인한 유저
-        //if (principal instanceof PrincipalDetails) {
-        //Integer userId = ((PrincipalDetails)principal).getId();
         System.out.println("Successfully Get User Data!");
-        //System.out.println(userId);
         prefer = preferenceService.getPreferenceByUserId(userId);
-        //}
-      /*  else{
-            // 유저 정보 없어서 원래 목적지로 안내
-            String output = principal.toString();
-            System.out.println(output);
-            result.setId(-1);
-            return result;
-        }*/
 
         // 1. 주차장 탐색
         // 1) rad 반경 내 2) 주차 가능 대수 > 0 3) 운영 시간 내 4) 주차장 면적 5) 기계식 유무
-
         Integer rad = 1;
         List<ParkingDTO> searchList = parkingService.findAdjacentParkingLot(prefer, lat, lng, rad);
         // 주차장 X => 반경 늘려 재탐색

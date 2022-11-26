@@ -14,5 +14,4 @@ public interface UserRepo {
 
     public void createUser(@Param("user") UserDTO user);
 
-    public UserDTO findByUsername(@Param("username") String username);
 }

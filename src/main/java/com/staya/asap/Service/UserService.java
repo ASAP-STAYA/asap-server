@@ -12,10 +12,6 @@ public class UserService {
         this.userRepo = userRepo;
     }
 
-    public UserDTO getUserById(Integer id) {
-        return this.userRepo.findById(id);
-    }
-
     public UserDTO getUserByEmail(String email) {
         return this.userRepo.findByEmail(email);
     }

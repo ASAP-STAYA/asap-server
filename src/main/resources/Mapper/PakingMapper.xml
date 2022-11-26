@@ -41,18 +41,6 @@
         SELECT * FROM parkinglot WHERE id = #{id};
     </select>
 
-<!--    <select id="getSearchList" resultType="com.staya.asap.Model.DB.ParkingDTO">
-        SELECT *
-        FROM (
-            SELECT id, PARKING_CODE, PARKING_NAME, ADDR, PARKING_TYPE, TEL, CAPACITY, CAPACITY_AVAILABLE, WEEKDAY_BEGIN_TIME, WEEKDAY_END_TIME, WEEKEND_BEGIN_TIME, WEEKEND_END_TIME, HOLIDAY_BEGIN_TIME, HOLIDAY_END_TIME, PAY_YN, SATURDAY_PAY_YN, HOLIDAY_PAY_YN, RATES, TIME_RATE, ADD_RATES, ADD_TIME_RATE, DAY_MAXIMUM, LAT, LNG, WIDE_YN, MECHANICAL_YN, RATES_PER_HOUR, (6371 *
-                      acos(cos(radians(LAT)) * cos(radians(#{lat})) * cos(radians(#{lng}) - radians(LNG)) +
-                           sin(radians(LAT)) * sin(radians(#{lat}))))
-                         AS distance
-              FROM parkinglot
-        ) AS DIST
-        WHERE DIST.distance &lt;= #{rad} AND DIST.CAPACITY_AVAILABLE &gt; 0 AND (DIST.WIDE_YN OR #{narrow}) AND (DIST.MECHANICAL_YN OR #{mechanical});
-     </select>-->
-
 
     <select id="getSearchList" resultType="com.staya.asap.Model.DB.ParkingDTO">
         SELECT *,
@@ -67,7 +55,6 @@
                     (6371 * acos(cos(radians(LAT)) * cos(radians(#{lat})) * cos(radians(#{lng}) - radians(LNG)) + sin(radians(LAT)) * sin(radians(#{lat}))))
                     AS distance
                     , str_to_date('20221225', '%Y%m%d') as curdate
-                    /* NOW() AS curdate*/
             FROM parkinglot
             )AS DIST
         WHERE DIST.distance &lt;= #{rad} AND DIST.CAPACITY_AVAILABLE &gt; 0 AND (DIST.WIDE_YN OR #{narrow}) AND (DIST.MECHANICAL_YN OR #{mechanical});

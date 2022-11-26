@@ -37,13 +37,13 @@ public class PreferenceController {
     @ResponseStatus(HttpStatus.OK)
     public PreferenceDTO getPreferenceInfo() {
         final PrincipalDetails user = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return preferenceService.getPreferenceByUserId(user.getId());
+        return preferenceService.getPreferenceByUserId(user.getUserId());
     }
 
     @PatchMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public void patchPreferenceInfo(@RequestBody PreferenceDTO preferenceDTO) {
         final PrincipalDetails user = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        preferenceService.updatePreference(preferenceDTO, user.getId());
+        preferenceService.updatePreference(preferenceDTO, user.getUserId());
     }
 }

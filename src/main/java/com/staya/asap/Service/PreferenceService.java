@@ -12,10 +12,6 @@ public class PreferenceService {
         this.preferenceRepo = preferenceRepo;
     }
 
-    public PreferenceDTO getPreferenceById(Integer id) {
-        return this.preferenceRepo.findById(id);
-    }
-
     public PreferenceDTO getPreferenceByUserId(Integer userId) {
         return this.preferenceRepo.findByUserId(userId);
     }

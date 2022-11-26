@@ -9,7 +9,6 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Data
-
 public class ReviewDTO {
 
     private int id;
