@@ -3,7 +3,7 @@
 -- asap.userreview definition
 
 CREATE TABLE `userreview` (
-                              `id` int NOT NULL AUTO_INCREMENT,
+                              `id` int(11) NOT NULL AUTO_INCREMENT,
                               `dist` double NOT NULL,
                               `cost` double NOT NULL,
                               `discontent` int NOT NULL DEFAULT -1,

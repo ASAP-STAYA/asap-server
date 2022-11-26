@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.staya.asap.Repository.ReviewRepo">
-    <insert id="createReview">
+    <insert id="createReview" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO user_review (user_id, dist, cost, discontent) VALUES (#{review.user_id}, #{review.dist}, #{review.cost}, #{review.discontent});
     </insert>
 

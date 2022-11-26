@@ -22,6 +22,7 @@ public class ReviewController {
         this.preferenceService = preferenceService;
     }
 
+
     // 리뷰로 상대 중요도 업데이트
     public Boolean updateWeights(ReviewDTO review){
         Boolean updated = false;
@@ -56,7 +57,6 @@ public class ReviewController {
     public String saveReview(@RequestBody ReviewDTO review){
         PrincipalDetails user = (PrincipalDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         review.setUser_id(user.getUserId());
-        review.setId(0);
         reviewService.saveReview(review);
 
         if (review.getDiscontent() >= 0){

@@ -133,37 +133,9 @@ public class ParkingController {
         return false;
     }
 
-    // 유저 선호도에 맞는 주차장 필터링
-    public List<ParkingDTO> getFilteredParkingLot(List<ParkingDTO> searchList, PreferenceDTO prefer){
-        Boolean can_narrow, can_mechanical;
-        Double dist_prefer, cost_prefer;
-        can_narrow = prefer.getCan_narrow();
-        can_mechanical = prefer.getCan_mechanical();
-        dist_prefer = prefer.getDist_prefer();
-        cost_prefer = prefer.getCost_prefer();
-
-        List<ParkingDTO> filtered = new ArrayList<>();
-
-        for(ParkingDTO data : searchList){
-            // 기계식 유무
-            if (data.getMECHANICAL_YN() != can_mechanical){
-                continue;
-            }
-            // 주차칸 면적
-            // can_narrow == 0 == getWIDE:YES , can_narrow == 1 == getWIDE : all
-            // or 연산시 1이어야 한다.
-            if(!(can_narrow||data.getWIDE_YN())){
-                continue;
-            }
-            // 선호 거리 내 && 선호 요금 내
-            if(data.getDistance() > dist_prefer || data.getRATES_PER_HOUR() > cost_prefer){
-                continue;
-            }
-            filtered.add(data);
-        }
-
-        return filtered;
-    }
+    // 요금/거리 최댓값
+    public final static Double MAX_COST_PREFER = 1000.0;
+    public final static Double MAX_DIST_PREFER = 1.5;
 
     // 주차장 점수 계산 후 최적의 주차장 리턴
     public ParkingDTO finalParkingLot(List<ParkingDTO> filtered, PreferenceDTO prefer){
@@ -172,13 +144,22 @@ public class ParkingController {
         dist_weight = prefer.getDist_weight();
         cost_prefer = prefer.getCost_prefer();
         dist_prefer = prefer.getDist_prefer();
+
+        if ( cost_prefer < 0 ){
+            cost_prefer = MAX_COST_PREFER;
+        }
+        if (dist_prefer < 0){
+            dist_prefer = MAX_DIST_PREFER;
+        }
         double adv = 0.2;
         // 가중치 1 : 유저 선호 범위 내에 존재 => 0.2 / 그 외 => 0.8 (adv 사용)
         // 가중치 2 : 거리와 요금의 상대적인 중요도 비율 (cost_weight, dist_weight 사용)
         ParkingDTO result = filtered.get(0);
-        double ParkingScore = result.getDistance()*dist_weight + result.getRATES_PER_HOUR()*cost_weight;
+        double ParkingScore = 1000.0; //최댓값으로 초기화
         for (ParkingDTO data : filtered){
-            double rate = (double)(data.getRATES_PER_HOUR());
+            // 현재 요일에 맞는 요금
+            double rate = data.getCost();
+            //System.out.println(rate);
             double dist = (double)(data.getDistance());
             double score = 0.0;
 
@@ -199,6 +180,7 @@ public class ParkingController {
                 result = data;
             }
         }
+        //System.out.println(ParkingScore);
         return result;
     }
 
@@ -208,8 +190,8 @@ public class ParkingController {
         // 입력값 : 경도 , 위도
         // 리턴값 : 주차장 이름, 경도, 위도
 
-        System.out.println("hello!\n");
-        System.out.println(lat);
+        //System.out.println("hello!\n");
+        //System.out.println(lat);
         // 0. 로그인한 유저 정보 불러오기
         PrincipalDetails user = (PrincipalDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Integer userId = user.getUserId();
@@ -220,7 +202,7 @@ public class ParkingController {
         //if (principal instanceof PrincipalDetails) {
         //Integer userId = ((PrincipalDetails)principal).getId();
         System.out.println("Successfully Get User Data!");
-        System.out.println(userId);
+        //System.out.println(userId);
         prefer = preferenceService.getPreferenceByUserId(userId);
         //}
       /*  else{
@@ -246,7 +228,7 @@ public class ParkingController {
                 return result;
             }
         }
-
+        //System.out.println(searchList.size());
         // 2. 주차장 점수 계산 후 사용자 최적의 주차장 선정
         return finalParkingLot(searchList, prefer);
     }
