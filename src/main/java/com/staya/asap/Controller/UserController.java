@@ -23,11 +23,4 @@ public class UserController {
     public UserDTO getUserInfo(@PathVariable("id") String id){
         return userService.getUserByEmail(id);
     }
-
-    @GetMapping("/")
-    public String user(HttpServletRequest request) {
-        System.out.println("user request: "+request.getHeader("Authorization"));
-        return "user";
-    }
-
 }

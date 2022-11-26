@@ -19,10 +19,6 @@ public class ParkingService {
         this.parkingRepo = parkingRepo;
     }
 
-    public ParkingDTO getParkingLotById(Integer id) {
-        return this.parkingRepo.findById(id);
-    }
-
     public void saveParkingLot(ParkingDTO parkingDTO) {
         this.parkingRepo.createParkingLot(parkingDTO);
     }

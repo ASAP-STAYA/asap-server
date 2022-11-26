@@ -9,7 +9,6 @@ package com.staya.asap.Configuration.Security.Auth;
 // Security Session => Authentication => UserDetails(PrincipalDetails)
 
 import com.staya.asap.Model.DB.UserDTO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -68,7 +67,6 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        // 우리 사이트!! 1년동안 회원이 로그인을 안하면 휴면 계정으로 하기로 함
         return true;
     }
 }

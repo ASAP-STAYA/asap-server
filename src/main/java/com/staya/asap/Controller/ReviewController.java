@@ -6,9 +6,6 @@ import com.staya.asap.Model.DB.PreferenceDTO;
 import com.staya.asap.Model.DB.ReviewDTO;
 import com.staya.asap.Service.PreferenceService;
 import com.staya.asap.Service.ReviewService;
-import org.apache.commons.collections4.sequence.EditScript;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +15,13 @@ import org.springframework.web.bind.annotation.*;
 public class ReviewController {
 
     private ReviewService reviewService;
-    @Autowired
     private PreferenceService preferenceService;
 
-    public ReviewController(ReviewService reviewService) {this.reviewService = reviewService;}
+    public ReviewController(ReviewService reviewService, PreferenceService preferenceService) {
+        this.reviewService = reviewService;
+        this.preferenceService = preferenceService;
+    }
+
 
     // 리뷰로 상대 중요도 업데이트
     public Boolean updateWeights(ReviewDTO review){
@@ -57,7 +57,6 @@ public class ReviewController {
     public String saveReview(@RequestBody ReviewDTO review){
         PrincipalDetails user = (PrincipalDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         review.setUser_id(user.getUserId());
-        review.setId(0);
         reviewService.saveReview(review);
 
         if (review.getDiscontent() >= 0){

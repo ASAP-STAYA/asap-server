@@ -18,8 +18,6 @@ public class PrincipalDetailsService implements UserDetailsService {
         this.userRepo = userRepo;
     }
 
-
-    // Security session(Authentication(UserDetails))
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         UserDTO user = userRepo.findByEmail(email);
