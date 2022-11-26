@@ -1,8 +1,11 @@
 package com.staya.asap.Controller;
 
+import com.staya.asap.Configuration.Security.Auth.PrincipalDetails;
 import com.staya.asap.Model.DB.PreferenceDTO;
+import com.staya.asap.Model.DB.UserDTO;
 import com.staya.asap.Service.PreferenceService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,16 +35,14 @@ public class PreferenceController {
     @GetMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public PreferenceDTO getPreferenceInfo() {
-        // TODO: 유저의 이름이 아닌 이메일이나 pk로 식별해야 함
-        final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        return preferenceService.getPreferenceByUserName(userName);
+        final PrincipalDetails user = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return preferenceService.getPreferenceByUserId(user.getId());
     }
 
     @PatchMapping("/")
     @ResponseStatus(HttpStatus.OK)
     public void patchPreferenceInfo(@RequestBody PreferenceDTO preferenceDTO) {
-        // TODO: 유저의 이름이 아닌 이메일이나 pk로 식별해야 함
-        final String userName = SecurityContextHolder.getContext().getAuthentication().getName();
-        preferenceService.updatePreference(preferenceDTO, userName);
+        final PrincipalDetails user = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        preferenceService.updatePreference(preferenceDTO, user.getId());
     }
 }
