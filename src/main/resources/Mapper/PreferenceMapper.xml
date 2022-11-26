@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.staya.asap.Repository.PreferenceRepo">
+    <insert id="createPreference">
+        INSERT INTO preference(id, user_id, dist_prefer, cost_prefer, can_mechanical, can_narrow)
+        VALUES (#{preference.id}, #{preference.user_id},
+                #{preference.dist_prefer}, #{preference.cost_prefer},
+                #{preference.can_mechanical}, #{preference.can_narrow});
+    </insert>
+
+    <select id="findById" resultType="preferenceDTO">
+        SELECT *
+        FROM preference
+        WHERE id = #{id};
+    </select>
+
+    <select id="findByUserId" resultType="preferenceDTO">
+        SELECT *
+        FROM preference
+        WHERE user_id = #{userId};
+    </select>
+
+    <select id="findByUserName" resultType="preferenceDTO">
+        SELECT *
+        FROM preference
+        WHERE user_id = (SELECT id FROM user WHERE username=#{userName});
+    </select>
+
+    <select id="updatePreference">
+        UPDATE preference
+        SET dist_prefer=#{preference.dist_prefer},
+            cost_prefer=#{preference.cost_prefer},
+            can_mechanical=#{preference.can_mechanical},
+            can_narrow=#{preference.can_narrow}
+        WHERE user_id = #{userId};
+    </select>
+</mapper>
