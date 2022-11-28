@@ -209,7 +209,6 @@ public class ParkingController {
             rad = 2;
             searchList = parkingService.findAdjacentParkingLot(prefer, lat, lng, rad);
             if(searchList.isEmpty()){
-
                 /*result.setId(-1);
                 return result;*/
                 // 주차 가능 주차장 없어서 가장 가까운 주차장으로 안내
