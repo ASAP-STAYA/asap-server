@@ -1,12 +1,14 @@
 package com.staya.asap.Controller;
 
 import com.staya.asap.Configuration.Security.Auth.JwtTokenProvider;
+import com.staya.asap.Configuration.Security.Auth.PrincipalDetails;
 import com.staya.asap.Model.DB.PreferenceDTO;
 import com.staya.asap.Model.DB.UserDTO;
 import com.staya.asap.Model.DB.UserWithPreferenceDTO;
 import com.staya.asap.Service.PreferenceService;
 import com.staya.asap.Service.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,6 +34,16 @@ public class AuthController {
         this.userService = userService;
         this.preferenceService = preferenceService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
+
+    @GetMapping("/islogin")
+    public Boolean userIsLogin() {
+        final PrincipalDetails user = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println(user);
+        if (user != null) {
+            return true;
+        }
+        return false;
     }
 
     @PostMapping("/signin")
