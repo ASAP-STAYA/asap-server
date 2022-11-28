@@ -257,15 +257,21 @@ public class ParkingController {
         if(searchList.isEmpty()) {
             rad = 2;
             searchList = parkingService.findAdjacentParkingLot(prefer, lat, lng, rad);
+
             if(searchList.isEmpty()){
-                // 주차 가능 주차장 없어서 원래 목적지로 안내
-                result.setId(-1);
-                return result;
+                /*result.setId(-1);
+                return result;*/
+                // 주차 가능 주차장 없어서 가장 가까운 주차장으로 안내
+                prefer.setCan_mechanical(true);
+                prefer.setCan_narrow(true);
+                searchList = parkingService.findAdjacentParkingLot(prefer,lat,lng,rad);
+                return searchList.get(0);
             }
         }
         //System.out.println(searchList.size());
         // 2. 주차장 점수 계산 후 사용자 최적의 주차장 선정
         return finalParkingLot(searchList, prefer);
+
     }
 
 }
