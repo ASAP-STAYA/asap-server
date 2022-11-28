@@ -8,6 +8,7 @@ import com.staya.asap.Model.DB.UserWithPreferenceDTO;
 import com.staya.asap.Service.PreferenceService;
 import com.staya.asap.Service.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -38,12 +39,11 @@ public class AuthController {
 
     @GetMapping("/islogin")
     public Boolean userIsLogin() {
-        final PrincipalDetails user = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        System.out.println(user);
-        if (user != null) {
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() == "anonymousUser"){
+            return false;
+        } else {
             return true;
         }
-        return false;
     }
 
     @PostMapping("/signin")
