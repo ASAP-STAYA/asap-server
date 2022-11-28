@@ -55,7 +55,7 @@
                     (6371 * acos(cos(radians(LAT)) * cos(radians(#{lat})) * cos(radians(#{lng}) - radians(LNG)) + sin(radians(LAT)) * sin(radians(#{lat}))))
                     AS distance
                     , NOW() as curdate
-            FROM parkinglotLNG
+            FROM parkinglot
             )AS DIST
         WHERE DIST.distance &lt;= #{rad} AND DIST.CAPACITY_AVAILABLE &gt; 0 AND (DIST.WIDE_YN OR #{narrow}) AND (!DIST.MECHANICAL_YN OR #{mechanical})
         ORDER BY distance;
