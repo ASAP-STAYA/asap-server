@@ -45,7 +45,7 @@
     <select id="getSearchList" resultType="com.staya.asap.Model.DB.ParkingDTO">
         SELECT *,
             CASE
-            WHEN DATE_FORMAT(DIST.curdate, '%m/%d') IN ( "01/01", "01/24", "01/27", "03/01", "04/30", "05/05", "08/15", "09/30", "10/01", "10/09", "12/25") THEN (CASE WHEN HOLIDAY_PAY_YN = false THEN 0 ELSE RATES_PER_HOUR END)
+            WHEN DATE_FORMAT(DIST.curdate, '%m/%d') IN ( '01/01', '01/24', '01/27', '03/01', '04/30', '05/05', '08/15', '09/30', '10/01', '10/09', '12/25') THEN (CASE WHEN HOLIDAY_PAY_YN = false THEN 0 ELSE RATES_PER_HOUR END)
             WHEN DAYOFWEEK(DIST.curdate) = 1 THEN (CASE WHEN HOLIDAY_PAY_YN = false THEN 0 ELSE RATES_PER_HOUR END)# 일요일
             WHEN DAYOFWEEK(DIST.curdate) = 7 THEN (CASE WHEN SATURDAY_PAY_YN = false THEN 0 ELSE RATES_PER_HOUR END) # 토요일
             ELSE RATES_PER_HOUR # 평일
@@ -57,6 +57,7 @@
                     , str_to_date('20221225', '%Y%m%d') as curdate
             FROM parkinglot
             )AS DIST
-        WHERE DIST.distance &lt;= #{rad} AND DIST.CAPACITY_AVAILABLE &gt; 0 AND (DIST.WIDE_YN OR #{narrow}) AND (DIST.MECHANICAL_YN OR #{mechanical});
+        WHERE DIST.distance &lt;= #{rad} AND DIST.CAPACITY_AVAILABLE &gt; 0 AND (DIST.WIDE_YN OR #{narrow}) AND (DIST.MECHANICAL_YN OR #{mechanical})
+        ORDER BY distance;
     </select>
 </mapper>
