@@ -208,6 +208,7 @@ public class ParkingController {
         if(searchList.isEmpty()) {
             rad = 2;
             searchList = parkingService.findAdjacentParkingLot(prefer, lat, lng, rad);
+
             if(searchList.isEmpty()){
                 /*result.setId(-1);
                 return result;*/
