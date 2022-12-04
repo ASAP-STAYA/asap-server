@@ -24,7 +24,7 @@ public class PreferenceService {
         this.preferenceRepo.updatePreference(preference, userId);
     }
 
-    public void updateWeights(PreferenceDTO preference, Integer userId){
-        this.preferenceRepo.updateWeights(preference,userId);
+    public void updateWeight(PreferenceDTO preference, Integer userId) {
+        this.preferenceRepo.updateWeight(preference, userId);
     }
 }

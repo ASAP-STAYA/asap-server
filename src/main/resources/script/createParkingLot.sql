@@ -54,7 +54,7 @@ CREATE TABLE `preference` (
                         `id` int(11) NOT NULL AUTO_INCREMENT,
                         `user_id` int(11) NOT NULL,
 
-                        `dist_prefer` double NOT NULL DEFAULT 0.0,
+                        `dist_prefer` double NOT NULL DEFAULT 0.5,
                         `dist_weight` double NOT NULL DEFAULT 0.4,
                         `cost_prefer` double NOT NULL DEFAULT 0.0,
                         `cost_weight` double NOT NULL DEFAULT 0.6,

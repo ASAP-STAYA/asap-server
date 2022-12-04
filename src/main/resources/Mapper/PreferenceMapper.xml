@@ -10,22 +10,10 @@
                 #{preference.can_mechanical}, #{preference.can_narrow});
     </insert>
 
-    <select id="findById" resultType="preferenceDTO">
-        SELECT *
-        FROM preference
-        WHERE id = #{id};
-    </select>
-
     <select id="findByUserId" resultType="preferenceDTO">
         SELECT *
         FROM preference
         WHERE user_id = #{userId};
-    </select>
-
-    <select id="findByUserName" resultType="preferenceDTO">
-        SELECT *
-        FROM preference
-        WHERE user_id = (SELECT id FROM user WHERE username=#{userName});
     </select>
 
     <select id="updatePreference">
@@ -37,7 +25,7 @@
         WHERE user_id = #{userId};
     </select>
 
-    <select id="updateWeights">
+    <select id="updateWeight">
         UPDATE preference
         SET dist_weight=#{preference.dist_weight},
         cost_weight=#{preference.cost_weight}
