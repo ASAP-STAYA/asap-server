@@ -29,12 +29,12 @@ import static java.lang.Math.abs;
 @CrossOrigin(exposedHeaders = "authorization", maxAge = 3600)
 public class ParkingController {
 
-    private ParkingService parkingService;
-    @Autowired
-    private PreferenceService preferenceService;
+    private final ParkingService parkingService;
+    private final PreferenceService preferenceService;
 
-    public ParkingController(ParkingService parkingService) {
+    public ParkingController(ParkingService parkingService, PreferenceService preferenceService) {
         this.parkingService = parkingService;
+        this.preferenceService = preferenceService;
     }
 
 
