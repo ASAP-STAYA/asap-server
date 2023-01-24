@@ -171,14 +171,8 @@ public class ParkingService {
 
     public ParkingDTO findParkingLot(double lat, double lng) {
         // 0. 로그인한 유저 정보 불러오기
-        PrincipalDetails user = (PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Integer userId = user.getUserId();
-        PreferenceDTO prefer;
-        ParkingDTO result = new ParkingDTO();
-
-        // 로그인한 유저
-        System.out.println("Successfully Get User Data!");
-        prefer = preferenceService.getPreferenceByUserId(userId);
+        final Integer userId = ((PrincipalDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUserId();
+        final PreferenceDTO prefer = preferenceService.getPreferenceByUserId(userId);
 
         // 1. 주차장 탐색
         // 1) rad 반경 내 2) 주차 가능 대수 > 0 3) 운영 시간 내 4) 주차장 면적 5) 기계식 유무
