@@ -13,6 +13,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -44,10 +45,11 @@ public class ParkingService {
 
     // 주차가능한 반경 (rad)km 내의 주차장 리턴
     public List<ParkingDTO> findAdjacentParkingLot(PreferenceDTO prefer, double lat, double lng, Integer radius) {
-        Integer mechanical = (prefer.getCan_mechanical()) ? 1 : 0;
-        Integer narrow = (prefer.getCan_narrow()) ? 1 : 0;
-        Double dist_prefer = prefer.getDist_prefer();
-        Double cost_prefer = prefer.getCost_prefer();
+        final Integer mechanical = (prefer.getCan_mechanical()) ? 1 : 0;
+        final Integer narrow = (prefer.getCan_narrow()) ? 1 : 0;
+        final Double dist_prefer = prefer.getDist_prefer();
+        final Double cost_prefer = prefer.getCost_prefer();
+
         return this.parkingRepo.getSearchList(lat, lng, radius, mechanical, narrow, dist_prefer, cost_prefer);
     }
 
@@ -87,7 +89,10 @@ public class ParkingService {
                 .encode(StandardCharsets.UTF_8) //인코딩
                 .toUri();
 
-        final ResponseEntity<Map> result = restTemplate.exchange(targetUrl, HttpMethod.GET, httpEntity, Map.class);
+        final ResponseEntity<Map<String, Object>> result = restTemplate.exchange(
+                    targetUrl, HttpMethod.GET, httpEntity, new ParameterizedTypeReference<>() {
+                });
+
         return (ArrayList<Object>) result.getBody().get("documents");
     }
 
