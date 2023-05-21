@@ -13,6 +13,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -33,6 +35,9 @@ public class ParkingService {
 
     private final ParkingRepo parkingRepo;
     private final PreferenceService preferenceService;
+
+    @Value("${kakao_apikey}")
+    private String kakao_apikey;
 
     public ParkingService(ParkingRepo parkingRepo, PreferenceService preferenceService) {
         this.parkingRepo = parkingRepo;
@@ -64,7 +69,7 @@ public class ParkingService {
 
     public ArrayList<Float> latLng(String searching) {
         final String url = "https://dapi.kakao.com/v2/local/search/keyword.json?query=" + searching + "&radius=20000";
-        final String key = "d08482d7a9775511b47dfeaa8b8997f7";
+        final String key = kakao_apikey;
 
         final ArrayList<Object> searchList = getSearchList(url, searching, key);
         final LinkedHashMap searchItem = (LinkedHashMap) searchList.get(0);
@@ -99,7 +104,7 @@ public class ParkingService {
     public boolean hasParkingLot(String searching, Double lat, Double lng) {
         final String url = "https://dapi.kakao.com/v2/local/search/keyword.json?query=" + searching
                 + "&category_group_code=PK6&radius=1";
-        final String key = "d08482d7a9775511b47dfeaa8b8997f7";
+        final String key = kakao_apikey;
 
         final ArrayList<Object> searchList = getSearchList(url, searching, key);
 
